@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import FileUpload from './fileUpload';
 import analyze from './analyze.py'
+import { useEffect, useState } from 'react'
 
 
 const App = () => (
@@ -36,7 +37,7 @@ const Navigation = () => (
           Analytics
         </Button>
         <Button color="inherit" component={Link} to="/about">
-          About
+          Raw Text
         </Button>
       </Toolbar>
     </AppBar>
@@ -44,8 +45,9 @@ const Navigation = () => (
 
 );
 
+function Home(props) {
 
-function Home() {
+
   return (
     <>
       <div className='home'>
@@ -53,7 +55,7 @@ function Home() {
         <p> Upload a pdf below!</p>
       </div>
 
-      <FileUpload />
+      <FileUpload data={props.data} setData={props.setData} />
     </>
   )
 }
@@ -71,7 +73,8 @@ function doAnalyze() {
 const Analytics = () => (
   <div className='analytics'>
     <h1>Analytics</h1>
-    <p>text</p>
+    <h3>Download the MP3 Recording of your PDF: <a href="https://drive.google.com/file/d/1iN4qkzQWBE9f1qeTBnODTFLYU8KCeZOE/view?usp=sharing">HERE</a> </h3>
+    <h3>Analytics downloaded!</h3>
     <p></p>
   </div>
 
@@ -80,20 +83,23 @@ const Analytics = () => (
 
 
 
-const About = () => (
+const About = (props) => (
   <div className='about'>
-    <h1>About Us</h1>
-    <p>McHacks 10 Team from McGill</p>
+    <h1>Text</h1>
+    <p>{props.data}</p>
   </div>
 );
 
-const Main = () => (
-  <Routes>
-    <Route exact path='/home' element={<Home />}></Route>
-    <Route exact path='/analytics' element={<Analytics />} />
-    <Route exact path='/about' element={<About />} />
-  </Routes>
-);
+const Main = () => {
+  const [data, setData] = useState('');
+  return (
+    <Routes>
+      <Route exact path='/home' element={<Home data={data} setData={setData} />}></Route>
+      <Route exact path='/analytics' element={<Analytics />} />
+      <Route exact path='/about' element={<About data={data} setData={setData} />} />
+    </Routes>
+  )
+};
 
 
 export default App;

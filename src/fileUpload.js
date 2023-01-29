@@ -4,61 +4,39 @@ import React, { Component } from 'react';
 import './index.css';
 import { useEffect, useState } from 'react'
 
-function FileUpload() {
+function FileUpload(props) {
     const [selectedFile, setSelectedFile] = useState('');
-    const [data, setData] = useState('');
 
     const onFileChange = event => {
         setSelectedFile(event.target.files[0]);
     };
 
-    // Calls when page is loaded
-    useEffect(() => {
-        fetchData()
-    }, []);
-
     const fetchData = () => {
-        const fileToUpload = selectedFile;
 
         var input = document.querySelector('input[type="file"]')
 
-        var data = new FormData()
-        data.append('file', fileToUpload)
+        let formData = new FormData()
+        formData.append('files', selectedFile);
+
+        let payload = {
+            method: 'POST',
+            body: formData
+        }
+
+        let pdfText;
+
+        console.log(formData.get('files'));
 
         // Pass this file to the backend
         // Backend will receive data, then return pdf
         // Receive pdf from backend then console log and see what it returns
 
-        fetch('http://127.0.0.1:5000/pdf-analysis', {
-            method: 'POST',
-            body: data
-        })
+        fetch('http://127.0.0.1:8000/pdf-analysis', payload)
+            .then(data => data.text())
+            .then(text => { props.setData(text) })
 
-        // Test enpoint (remove eventually)
-        fetch("http://127.0.0.1:5000/test")
-            .then((response) => response.text())
-            .then((data) => console.log(data));
+
     }
-    const onFileUpload = () => {
-
-
-
-
-
-        /*
-        const formData = new FormData();
-        formData.append(
-            "myFile",
-            this.state.selectedFile,
-            this.state.selectedFile.name
-        );
-
-        console.log(this.state.selectedFile);
-        axios.post("api/uploadfile", formData).then(data => {
-            console.log();
-        });
-        */
-    };
 
     const fileData = () => {
         if (selectedFile) {
@@ -94,7 +72,7 @@ function FileUpload() {
         <div>
             <div>
                 <input type="file" onChange={onFileChange} />
-                <button onClick={fetchData}>
+                <button onClick={() => fetchData()}>
                     Upload
                 </button>
 
