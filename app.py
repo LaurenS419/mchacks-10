@@ -92,7 +92,6 @@ def textpdf_to_txt(filename):
 
 def text_to_speech(text):
     engine = pyttsx3.init()
-    # /Users/laurenspee/Desktop/
     engine.save_to_file(text, "pdfAudio.mp3")
     engine.runAndWait()
 
