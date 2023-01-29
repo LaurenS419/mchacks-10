@@ -129,7 +129,7 @@ def reading_time(word_count, reading_speed):
     while minutes_taken > 60:
         hours += 1
         minutes_taken -= 60
-    return str(hours) + ' hours and ' + str(minutes_taken) + ' minutes'
+    return str(hours) + ' hours and ' + str(round(minutes_taken, 2)) + ' minutes'
 
 
 def cohere_summary(text):
@@ -197,14 +197,14 @@ def makePDF(input_filename, summary, bottom_text, punctuation_filename, avg_word
 
     #       obj.image(filename,x,y,size)
     image_size = 75
-    image_y = 122
+    image_y = 130
     pdf.image(punctuation_filename, 25, image_y, image_size)
     # Image 2
     pdf.image(avg_word_length_filename, 110, image_y, image_size)
     # Image 3
-    pdf.image(unique_word_types_filename, 25, image_y+50, image_size)
+    pdf.image(unique_word_types_filename, 25, image_y+60, image_size)
     # Image 4
-    pdf.image(sentence_length_filename, 110, image_y+50, image_size)
+    pdf.image(sentence_length_filename, 110, image_y+60, image_size)
 
     # bottom text -- make it fit; max number of characters is 200
     if len(bottom_text) > 350:
@@ -221,12 +221,12 @@ def makePDF(input_filename, summary, bottom_text, punctuation_filename, avg_word
 
     bottom_text_lst.append(bottom_text)
 
-    y = 240
+    y = 250
 
     for i in range(len(bottom_text_lst)):
         while bottom_text_lst[i][0] == ' ':
             bottom_text_lst[i] = bottom_text_lst[i][1:]
-        pdf.text(x, y+y_spacing*i, bottom_text_lst[i])
+        pdf.text(x, y+y_spacing*i+10, bottom_text_lst[i])
 
     # output the pdf
     output_filename = 'Analysis PDF of ' + input_filename + '.pdf'
