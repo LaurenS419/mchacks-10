@@ -1,8 +1,6 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import './index.css';
 import { NavLink, Routes, Route } from 'react-router-dom';
-//import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import FileUpload from './fileUpload';
-import analyze from './analyze.py'
 import { useEffect, useState } from 'react'
 
 
@@ -73,7 +70,7 @@ function doAnalyze() {
 const Analytics = () => (
   <div className='analytics'>
     <h1>Analytics</h1>
-    <h3>Download the MP3 Recording of your PDF: <a href="https://drive.google.com/file/d/1iN4qkzQWBE9f1qeTBnODTFLYU8KCeZOE/view?usp=sharing">HERE</a> </h3>
+    <h3>MP3 downloaded!</h3>
     <h3>Analytics downloaded!</h3>
     <p></p>
   </div>
